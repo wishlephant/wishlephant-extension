@@ -3,6 +3,9 @@
 * [Install in Firefox](https://addons.mozilla.org/en-US/firefox/addon/wishlephant/?src=search)
 * *Chrome will follow soon.*
 
+Alternatively you can install [this](https://www.icloud.com/shortcuts/d2bc9187df2349a7a1417976dd2b795b)
+iOS shortcut or bookmark <a href="javascript:;void(open('https://wishlephant.com/add_entry?url='+encodeURIComponent(location.href),'_blank'));">this link</a>.
+
 This is the code for the wishlephant browser extension.
 
 To start it in development mode simply run this:
