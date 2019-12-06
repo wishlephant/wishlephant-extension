@@ -1,6 +1,6 @@
 {
   "name": "wishlephant-extension",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A browser extension for wishlephant.com",
   "repository": "git@github.com:bitboxer/wishlephant-extension.git",
   "author": "Bodo Tasche <bodo@wannawork.de> (https://bitboxer.de/)",

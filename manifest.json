@@ -2,7 +2,7 @@
   "description": "Add wishes to your wishlists on Wishlephant.com",
   "manifest_version": 2,
   "name": "Wishlephant",
-  "version": "1.0",
+  "version": "1.1.0",
   "background": {
     "scripts": ["src/background.js"]
   },
