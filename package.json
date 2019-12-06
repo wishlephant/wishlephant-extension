@@ -9,7 +9,7 @@
     "web-ext": "^3.2.1"
   },
   "scripts": {
-    "build": "web-ext build"
+    "build": "web-ext build --overwrite-dest",
     "run-firefox": "web-ext run",
     "run-chrome": "web-ext run -t chromium"
   }
