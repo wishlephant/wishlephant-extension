@@ -1,0 +1,16 @@
+{
+  "name": "wishlephant-extension",
+  "version": "1.0.0",
+  "description": "A browser extension for wishlephant.com",
+  "repository": "git@github.com:bitboxer/wishlephant-extension.git",
+  "author": "Bodo Tasche <bodo@wannawork.de> (https://bitboxer.de/)",
+  "license": "MIT",
+  "dependencies": {
+    "web-ext": "^3.2.1"
+  },
+  "scripts": {
+    "build": "web-ext build"
+    "run-firefox": "web-ext run",
+    "run-chrome": "web-ext run -t chromium"
+  }
+}
