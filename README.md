@@ -1,6 +1,6 @@
 # Wishlephant Browser extension
 
-This is the code for the wishlephant browser extension.
+This is the code for the [wishlephant](https://wishlephant.com) browser extension.
 
 * [Install in Firefox](https://addons.mozilla.org/en-US/firefox/addon/wishlephant/?src=search)
 * *Chrome will follow soon.*
