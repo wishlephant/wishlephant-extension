@@ -1,8 +1,9 @@
 {
-  "description": "Add wishes to your wishlists on Wishlephant.com",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en",
   "manifest_version": 2,
-  "name": "Wishlephant",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "background": {
     "scripts": ["src/background.js"]
   },

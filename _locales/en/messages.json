@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Wishlephant",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "Add wishes to your wishlists on Wishlephant.com", 
+    "description":"The description of the application, displayed in the web store."
+  }
+}
