@@ -3,7 +3,7 @@
 This is the code for the [wishlephant](https://wishlephant.com) browser extension.
 
 * [Install in Firefox](https://addons.mozilla.org/en-US/firefox/addon/wishlephant/?src=search)
-* *Chrome will follow soon.*
+* [Install in Chrome](https://chrome.google.com/webstore/detail/wishlephant/jlboplkjmpihnagigadfbghilalnpgkl?hl=de)
 
 Alternatively you can install [this](https://www.icloud.com/shortcuts/d2bc9187df2349a7a1417976dd2b795b)
 iOS shortcut or create a bookmark with this link:
