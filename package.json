@@ -6,6 +6,8 @@
   "author": "Bodo Tasche <bodo@wannawork.de> (https://bitboxer.de/)",
   "license": "MIT",
   "dependencies": {
+    "acorn": "^7.1.1",
+    "eslint": "^4.18.2",
     "web-ext": "^3.2.1"
   },
   "scripts": {
