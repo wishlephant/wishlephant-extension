@@ -6,10 +6,10 @@
   "author": "Bodo Tasche <bodo@wannawork.de> (https://bitboxer.de/)",
   "license": "MIT",
   "dependencies": {
-    "acorn": "^7.1.1",
-    "eslint": "^4.18.2",
+    "acorn": "^8.0.1",
+    "eslint": "^7.8.1",
     "minimist": "^1.2.2",
-    "web-ext": "^3.2.1"
+    "web-ext": "^5.0.0"
   },
   "scripts": {
     "build": "web-ext build --overwrite-dest",
