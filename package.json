@@ -8,7 +8,7 @@
   "dependencies": {
     "acorn": "^8.0.1",
     "eslint": "^7.8.1",
-    "minimist": "^1.2.2",
+    "minimist": "^1.2.6",
     "web-ext": "^5.0.0"
   },
   "scripts": {
