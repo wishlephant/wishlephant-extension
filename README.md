@@ -2,14 +2,14 @@
 
 This is the code for the [wishlephant](https://wishlephant.com) browser extension.
 
-* [Install in Firefox](https://addons.mozilla.org/en-US/firefox/addon/wishlephant/?src=search)
-* [Install in Chrome](https://chrome.google.com/webstore/detail/wishlephant/jlboplkjmpihnagigadfbghilalnpgkl?hl=de)
+- [Install in Firefox](https://addons.mozilla.org/en-US/firefox/addon/wishlephant/?src=search)
+- [Install in Chrome](https://chrome.google.com/webstore/detail/wishlephant/jlboplkjmpihnagigadfbghilalnpgkl?hl=de)
 
 Alternatively you can install [this](https://www.icloud.com/shortcuts/d2bc9187df2349a7a1417976dd2b795b)
 iOS shortcut or create a bookmark with this link:
 
 ```js
-javascript:;void(open('https://wishlephant.com/add_entry?url='+encodeURIComponent(location.href),'_blank'));
+javascript: void open('https://wishlephant.com/add_entry?url=' + encodeURIComponent(location.href), '_blank');
 ```
 
 ## Development
@@ -25,8 +25,8 @@ yarn run-chrome # for chrome
 ## Release
 
 To build the zip file for publishing in the chrome/firefox stores run
-this task: 
+this task:
 
 ```sh
-yarn build
-````
+yarn release
+```

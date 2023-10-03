@@ -1,19 +1,27 @@
-var browser = browser || chrome;
+import parse from './parser';
+
+const browserInstance = browser || chrome;
 
 function openPage() {
-  browser.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    var tab = tabs[0];
-    try {
-      var url = new URL(tab.url);
-      if (url.protocol === "http:" || url.protocol === "https:") {
+  browserInstance.tabs.query({active: true, currentWindow: true}, function (tabs) {
+    const tab = tabs[0];
+    const url = new URL(tab.url);
+
+    function analyzeDom(domContent) {
+      const result = parse(domContent);
+      result.url = tab.url;
+      const params = new URLSearchParams(result);
+      try {
         browser.tabs.create({
-          url:
-            "https://wishlephant.com/add_entry?url=" +
-            encodeURIComponent(tab.url)
+          url: 'https://wishlephant.com/add_entry?' + params.toString(),
         });
+      } catch (e) {
+        console.log('not a valid url');
       }
-    } catch (e) {
-      console.log("not a valid url");
+    }
+
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
+      chrome.tabs.sendMessage(tab.id, {text: 'wishlephant_fetch_dom_content'}, analyzeDom);
     }
   });
 }

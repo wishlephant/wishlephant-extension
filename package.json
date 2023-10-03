@@ -5,15 +5,31 @@
   "repository": "git@github.com:bitboxer/wishlephant-extension.git",
   "author": "Bodo Tasche <bodo@wannawork.de> (https://bitboxer.de/)",
   "license": "MIT",
-  "dependencies": {
-    "acorn": "^8.0.1",
-    "eslint": "^7.8.1",
-    "minimist": "^1.2.6",
-    "web-ext": "^5.0.0"
-  },
+  "dependencies": {},
   "scripts": {
-    "build": "web-ext build --overwrite-dest",
-    "run-firefox": "web-ext run",
-    "run-chrome": "web-ext run -t chromium"
+    "build": "concurrently npm:build-background npm:build-content",
+    "build-background": "esbuild src/background.js --bundle --outfile=build/background.js --watch",
+    "build-content": "esbuild src/content.js --bundle --outfile=build/content.js --watch",
+    "release": "web-ext build --overwrite-dest",
+    "run-firefox": "concurrently npm:build-background npm:build-content npm:open-firefox",
+    "run-chrome": "concurrently npm:build-background npm:build-content npm:open-chrome",
+    "open-firefox": "web-ext run --watch-file build/background.js build/content.js",
+    "open-chrome": "web-ext run -t chromium --watch-file build/background.js build/content.js",
+    "format": "prettier '**/*.js' -w",
+    "lint": "eslint src && web-ext lint"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.246",
+    "@types/firefox-webext-browser": "^111.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "acorn": "^8.10.0",
+    "concurrently": "^8.2.1",
+    "esbuild": "^0.19.4",
+    "eslint": "^8.50.0",
+    "minimist": "^1.2.8",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
+    "web-ext": "^7.8.0"
   }
 }
