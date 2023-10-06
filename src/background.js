@@ -9,6 +9,7 @@ function openPage() {
 
     function analyzeDom(domContent) {
       const result = parse(domContent);
+      Object.keys(result).forEach((key) => result[key] === undefined && delete result[key]);
       result.url = tab.url;
       const params = new URLSearchParams(result);
       try {
