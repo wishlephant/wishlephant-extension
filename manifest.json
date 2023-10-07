@@ -3,17 +3,21 @@
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "manifest_version": 2,
-  "version": "1.1.1",
+  "version": "2.0.0",
   "background": {
-    "scripts": ["src/background.js"]
+    "scripts": ["build/background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["build/content.js"]
+    }
+  ],
   "browser_action": {
     "default_icon": {
       "16": "icons/wishlephant-16.png",
       "32": "icons/wishlephant-32.png"
     }
   },
-  "permissions": [
-    "tabs"
-  ] 
+  "permissions": ["tabs"]
 }
