@@ -1,9 +1,11 @@
 import parse from './parser';
 
-const browserInstance = browser || chrome;
+if (!('browser' in self)) {
+  self.browser = self.chrome;
+}
 
 function openPage() {
-  browserInstance.tabs.query({active: true, currentWindow: true}, function (tabs) {
+  browser.tabs.query({active: true, currentWindow: true}, function (tabs) {
     const tab = tabs[0];
     const url = new URL(tab.url);
 
@@ -27,4 +29,4 @@ function openPage() {
   });
 }
 
-browser.browserAction.onClicked.addListener(openPage);
+browser.action.onClicked.addListener(openPage);
