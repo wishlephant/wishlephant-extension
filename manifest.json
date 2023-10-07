@@ -3,7 +3,7 @@
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "manifest_version": 2,
-  "version": "2.0.2",
+  "version": "2.0.3",
   "background": {
     "scripts": ["build/background.js"]
   },
@@ -19,5 +19,5 @@
       "32": "icons/wishlephant-32.png"
     }
   },
-  "permissions": ["tabs"]
+  "permissions": ["activeTab"]
 }
