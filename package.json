@@ -1,6 +1,6 @@
 {
   "name": "wishlephant-extension",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "A browser extension for wishlephant.com",
   "repository": "git@github.com:bitboxer/wishlephant-extension.git",
   "author": "Bodo Tasche <bodo@wannawork.de> (https://bitboxer.de/)",
@@ -12,7 +12,7 @@
     "build": "concurrently npm:build-background npm:build-content",
     "build-background": "esbuild src/background.js --bundle --outfile=build/background.js --watch",
     "build-content": "esbuild src/content.js --bundle --outfile=build/content.js --watch",
-    "release": "web-ext build --overwrite-dest --ignore-files src tests jest.config.ts yarn.lock yarn-error.log",
+    "release": "web-ext build --overwrite-dest --ignore-files arn-error.log",
     "run-firefox": "concurrently npm:build-background npm:build-content npm:open-firefox",
     "run-chrome": "concurrently npm:build-background npm:build-content npm:open-chrome",
     "open-firefox": "web-ext run --watch-file build/background.js build/content.js",

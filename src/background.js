@@ -29,4 +29,8 @@ function openPage() {
   });
 }
 
-browser.action.onClicked.addListener(openPage);
+if (browser.browserAction) {
+  browser.browserAction.onClicked.addListener(openPage);
+} else {
+  browser.action.onClicked.addListener(openPage);
+}
