@@ -21,7 +21,7 @@ jobs:
 
       - run: yarn biome format --check .
 
-      - run: yarn biome lint .
+      - run: yarn lint
 
       - run: yarn test
 

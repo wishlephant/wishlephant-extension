@@ -7,7 +7,7 @@ export default defineBackground(() => {
     } catch {
       await browser.scripting.executeScript({
         target: {tabId},
-        files: ['content-scripts/content.js'],
+        files: ['/content-scripts/content.js'],
       });
       return await browser.tabs.sendMessage(tabId, {text: 'wishlephant_fetch_dom_content'});
     }
