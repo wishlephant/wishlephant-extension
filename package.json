@@ -1,7 +1,7 @@
 {
   "name": "wishlephant-extension",
   "description": "Browser extension for wishlephant.com",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "repository": "git@github.com:bitboxer/wishlephant-extension.git",
