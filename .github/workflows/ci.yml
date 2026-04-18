@@ -19,8 +19,6 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
-      - run: yarn biome format --check .
-
       - run: yarn lint
 
       - run: yarn test

@@ -1,5 +1,5 @@
-import parse from '../src/parser';
 import {readFileSync} from 'node:fs';
+import parse from '../src/parser';
 
 describe('parser', () => {
   test('Parses basic html header data', () => {
