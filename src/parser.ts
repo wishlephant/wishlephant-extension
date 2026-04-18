@@ -3,7 +3,7 @@ import WAE from '@rane/web-auto-extractor';
 type ParseResult = {
   name?: string;
   image?: string;
-  price?: string;
+  price?: string | number;
   priceCurrency?: string;
   isbn?: string;
 };
@@ -13,34 +13,22 @@ type MetaTags = {
 };
 
 type SchemaType = {
-  Book?: unknown[];
-  Product?: unknown[];
+  Book?: Record<string, unknown>[];
+  Product?: Record<string, unknown>[];
 };
 
-const cleanUp = (input: undefined | string | string[]): string | undefined => {
-  if (Array.isArray(input)) {
-    return input[0];
-  }
-
-  return input;
+const cleanUp = (input: unknown): string | undefined => {
+  if (Array.isArray(input)) return input[0] as string;
+  if (typeof input === 'string') return input;
+  return undefined;
 };
 
-const cleanUpIsbn = (input: string | string[]): string | undefined => {
+const cleanUpUrl = (input: unknown): string | undefined => {
   const cleaned = cleanUp(input);
-
-  return cleaned;
-};
-
-const cleanUpUrl = (input: string | string[]): string | undefined => {
-  const cleaned = cleanUp(input);
-
   if (cleaned) {
-    if (cleaned.startsWith('//')) {
-      return `https:${cleaned}`;
-    }
+    if (cleaned.startsWith('//')) return `https:${cleaned}`;
     return cleaned;
   }
-
   return undefined;
 };
 
@@ -50,40 +38,36 @@ export const extractFromBase = (input: string): ParseResult => ({
 
 export const extractFromMetatags = (metatags: MetaTags): ParseResult => {
   return {
-    name: cleanUp(metatags['og:title'] || metatags['title']),
+    name: cleanUp(metatags['og:title'] || metatags.title),
     image: cleanUpUrl(metatags['og:image']),
-    price: cleanUp(metatags['product:price:amount'] || metatags['og:price:amount'] || metatags['price']),
+    price: cleanUp(metatags['product:price:amount'] || metatags['og:price:amount'] || metatags.price),
     priceCurrency: cleanUp(
-      metatags['product:price:currency'] || metatags['og:price:currency'] || metatags['priceCurrency']
+      metatags['product:price:currency'] || metatags['og:price:currency'] || metatags.priceCurrency
     ),
-    isbn: cleanUpIsbn(metatags['book:isbn']),
+    isbn: cleanUp(metatags['book:isbn']),
   };
 };
 
 export const extractFromSchema = (jsonld: SchemaType): ParseResult => {
   let result: ParseResult = {};
-  if (jsonld.Book && jsonld.Book[0]) {
+  if (jsonld.Book?.[0]) {
+    const book = jsonld.Book[0];
     result = {
-      name: cleanUp(jsonld.Book[0]['name']),
-      isbn: cleanUpIsbn(jsonld.Book[0]['isbn']),
-      image: cleanUp(jsonld.Book[0]['image']),
+      name: cleanUp(book.name),
+      isbn: cleanUp(book.isbn),
+      image: cleanUp(book.image),
     };
   }
-  if (jsonld.Product && jsonld.Product[0]) {
+  if (jsonld.Product?.[0]) {
     const product = jsonld.Product[0];
-    result.name = cleanUp(product['name']) || result.name;
-    result.image = cleanUp(product['image']) || result.image;
+    result.name = cleanUp(product.name) || result.name;
+    result.image = cleanUp(product.image) || result.image;
 
-    if (product['offers']) {
-      let offer;
-      if (Array.isArray(product['offers'])) {
-        offer = product['offers'][0];
-      } else {
-        offer = product['offers'];
-      }
-
-      result.priceCurrency = offer['priceCurrency'];
-      result.price = offer['price'] || offer['lowPrice'];
+    const offers = product.offers;
+    if (offers) {
+      const offer = (Array.isArray(offers) ? offers[0] : offers) as Record<string, unknown>;
+      result.priceCurrency = cleanUp(offer.priceCurrency);
+      result.price = (offer.price ?? offer.lowPrice) as string | number | undefined;
     }
   }
 
