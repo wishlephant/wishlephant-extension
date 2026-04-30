@@ -13,8 +13,8 @@ or a bookmark:
 
 ```js
 javascript: void open(
-  'https://wishlephant.com/add_entry?url=' + encodeURIComponent(location.href),
-  '_blank'
+  "https://wishlephant.com/add_entry?url=" + encodeURIComponent(location.href),
+  "_blank",
 );
 ```
 
@@ -26,6 +26,32 @@ yarn install
 yarn dev           # Chrome — opens a browser window with the extension loaded
 yarn dev:firefox   # Firefox
 ```
+
+## Testing on Firefox for Android
+
+1. **Enable USB debugging on your Android device:**
+   Settings > About Phone > tap "Build number" 7 times, then
+   Settings > Developer options > enable "USB debugging"
+2. **Enable remote debugging in Firefox for Android:**
+   Menu (⋮) > Settings > scroll to bottom > enable "Remote debugging via USB"
+3. **Connect your device via USB** and verify it's detected:
+
+   ```sh
+   adb devices
+   ```
+
+4. **Build and run on the device:**
+
+   ```sh
+   yarn build:firefox
+   npx web-ext run --target firefox-android --source-dir .output/firefox-mv2 --android-device=[DEVICE_ID]
+   ```
+
+   When prompted, select your device and the Firefox APK (`org.mozilla.firefox` for
+   stable, `org.mozilla.fenix` for Nightly).
+
+If ADB doesn't detect the device, try `adb kill-server && adb start-server` and reconnect
+the USB cable.
 
 ## Tests
 

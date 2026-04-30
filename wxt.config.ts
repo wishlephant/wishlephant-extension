@@ -29,6 +29,9 @@ export default defineConfig({
         id: "{5edc9e95-13ed-42b7-9598-ce7f242d3cbd}",
         strict_min_version: "109.0",
       },
+      gecko_android: {
+        strict_min_version: "109.0",
+      },
     },
   },
 });
