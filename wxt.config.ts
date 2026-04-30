@@ -27,14 +27,14 @@ export default defineConfig({
     browser_specific_settings: {
       gecko: {
         id: "{5edc9e95-13ed-42b7-9598-ce7f242d3cbd}",
-        strict_min_version: "109.0",
+        strict_min_version: "140.0",
         data_collection_permissions: {
           required: ["websiteContent"],
           optional: [],
         },
       },
       gecko_android: {
-        strict_min_version: "113.0",
+        strict_min_version: "142.0",
       },
     },
   },
