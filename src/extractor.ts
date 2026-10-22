@@ -10,6 +10,21 @@ type JsonLdItem = Record<string, unknown>;
 
 const fixUrl = (url: string): string => (url.startsWith('//') ? `https:${url}` : url);
 
+// schema.org allows an image to be a url, an ImageObject or a list of both.
+function imageUrl(image: unknown): string | undefined {
+  if (Array.isArray(image)) return imageUrl(image[0]);
+  if (typeof image === 'string') return image ? fixUrl(image) : undefined;
+  if (image && typeof image === 'object') {
+    const object = image as JsonLdItem;
+    return imageUrl(object.url ?? object.contentUrl);
+  }
+}
+
+const isType = (item: JsonLdItem, type: string): boolean => {
+  const types = item['@type'];
+  return Array.isArray(types) ? types.includes(type) : types === type;
+};
+
 function getMeta(doc: Document, ...keys: string[]): string | undefined {
   for (const key of keys) {
     const el = doc.querySelector<HTMLMetaElement>(`meta[property="${key}"], meta[name="${key}"]`);
@@ -33,22 +48,22 @@ function fromJsonLd(doc: Document): ParseResult {
   for (const script of doc.querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]')) {
     try {
       const data = JSON.parse(script.textContent ?? '') as JsonLdItem | JsonLdItem[];
-      if (Array.isArray(data)) items.push(...data);
-      else items.push(data);
+      for (const item of Array.isArray(data) ? data : [data]) {
+        items.push(item, ...((item['@graph'] as JsonLdItem[] | undefined) ?? []));
+      }
     } catch {}
   }
 
   const result: ParseResult = {};
   for (const item of items) {
-    const type = String(item['@type'] ?? '');
-    if (type === 'Book') {
+    if (isType(item, 'Book')) {
       result.name = (item.name as string) || result.name;
       result.isbn = (item.isbn as string) || result.isbn;
-      result.image = (item.image as string) || result.image;
+      result.image = imageUrl(item.image) || result.image;
     }
-    if (type === 'Product') {
+    if (isType(item, 'Product')) {
       result.name = (item.name as string) || result.name;
-      result.image = (item.image as string) || result.image;
+      result.image = imageUrl(item.image) || result.image;
       const offers = item.offers as JsonLdItem | JsonLdItem[] | undefined;
       if (offers) {
         const offer = Array.isArray(offers) ? offers[0] : offers;
@@ -71,7 +86,8 @@ function fromMicrodata(doc: Document): ParseResult {
   };
 
   result.name = prop(product, 'name');
-  result.image = product.querySelector<HTMLImageElement>('[itemprop="image"]')?.getAttribute('src') ?? undefined;
+  const image = product.querySelector<HTMLElement>('[itemprop="image"]');
+  result.image = imageUrl(image?.getAttribute('src') ?? image?.getAttribute('content') ?? undefined);
 
   const offer = product.querySelector('[itemtype*="schema.org/Offer"]');
   if (offer) {

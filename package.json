@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "linkedom": "^0.18.12",
     "typescript": "^5.9.3",
     "vitest": "^3.1.1",
     "wxt": "^0.20.25"
