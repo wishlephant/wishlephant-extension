@@ -76,17 +76,24 @@ yarn zip:firefox   # Firefox zip for store submission
   URL parameters.
 - **`entrypoints/content.ts`** — responds to the background's message by
   running `parseDocument(document)`.
-- **`src/extractor.ts`** — DOM-based metadata extractor: reads Open Graph tags,
-  JSON-LD and microdata directly from the live document. Zero dependencies,
-  no eval.
-- **`src/parser.ts`** — string-based parser used only by the test suite.
+- **`src/extractor/`** — DOM-based metadata extractor, zero dependencies, no
+  eval. `index.ts` runs the pipeline:
+  - `sources/` reads schema.org data (`json-ld.ts`, `microdata.ts`, combined in
+    `schema.ts`), OpenGraph tags (`open-graph.ts`) and as a last resort the
+    product image of the page (`page-image.ts`). The readers cope with broken
+    markup.
+  - `sites/` holds rules for shops that need more (amazon, genialokal). A new
+    shop is a `Site` with a host pattern and a `refine` function, added to
+    `sites/index.ts`.
+  - `price.ts`, `isbn.ts`, `entities.ts` and `url.ts` clean up values,
+    `challenge.ts` detects bot challenge pages (they return no data).
 
 ## Project structure
 
 ```
 entrypoints/    WXT entrypoints (background + content script)
-src/            Shared logic (extractor, parser)
-tests/          Jest test suite
+src/            Shared logic (extractor)
+tests/          Vitest test suite
 public/         Static assets (icons, locales) copied into the built extension
 wxt.config.ts   Extension manifest configuration
 ```
