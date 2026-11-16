@@ -2,6 +2,9 @@ import { defineConfig } from "wxt";
 
 export default defineConfig({
   suppressWarnings: { firefoxDataCollection: true },
+  zip: {
+    excludeSources: [".*/**", "output/**", "build/**", "web-ext-artifacts/**"],
+  },
   manifest: {
     name: "__MSG_appName__",
     description: "__MSG_appDesc__",
